@@ -49,6 +49,7 @@ spec:
         env:
           - name: APP_ENV
             value: "{{ .Values.environment }}"
+          {{- if eq .Values.postgresql.enabled true -}}
           - name: DATABASE_SERVICE_HOST
             value: {{ template "postgresql.fullname" . }}
           - name: DATABASE_SERVICE_PORT
@@ -68,8 +69,10 @@ spec:
               secretKeyRef:
                 key: {{ default "password" }}
                 name: {{ template "postgresql.fullname" . }}
+          {{- end }}
           - name: SECRET_KEY
             value: "{{ .Values.secret_key }}"
+          {{- if eq .Values.redis.enabled true -}}
           - name: REDIS_SERVICE_HOST
             value: {{ template "redis.fullname" . }}
           - name: REDIS_SERVICE_PORT
@@ -79,6 +82,7 @@ spec:
               secretKeyRef:
                 key: database-password
                 name: {{ template "redis.name" . }}
+          {{- end }}
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
