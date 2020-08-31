@@ -9,9 +9,8 @@ https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
 
 
 from django.core.wsgi import get_wsgi_application
-from lxp_recommendation_service.preps import set_default_env, load_sample_data
+from lxp_recommendation_service.preps import set_default_env
 
 set_default_env()
-load_sample_data()
 
 application = get_wsgi_application()

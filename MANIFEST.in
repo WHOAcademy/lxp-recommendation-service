@@ -1,4 +1,4 @@
 recursive-include lxp_recommendation_service/settings *.py
-recursive-include course_app *.*
+recursive-include recommendation_app *.*
 include requirements.txt
 include Dockerfile

@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Project apps
-    'course_app.apps.CourseAppConfig',
+    'recommendation_app.apps.RecommendationAppConfig',
 
     # Dependencies
     'rest_framework',

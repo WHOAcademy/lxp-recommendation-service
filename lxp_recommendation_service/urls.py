@@ -23,9 +23,9 @@ from rest_framework import permissions
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Course Service API",
+        title="Recommendation Service API",
         default_version='v1',
-        description="This OpenAPI spec includes the documentation of the Course Service API"
+        description="This OpenAPI spec includes the documentation of the Recommendation Service API"
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
@@ -37,5 +37,5 @@ urlpatterns = [
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
     path('admin/', admin.site.urls),
-    path('api/', include('course_app.urls')),
+    path('api/', include('recommendation_app.urls')),
 ]

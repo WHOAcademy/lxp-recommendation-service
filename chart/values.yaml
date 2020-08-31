@@ -20,7 +20,7 @@ secret_key: gs7(p)fk=pf2(kbg*1wz$x+hnmw@y6%ij*x&pq4(^y8xjq$q#f
 environment: dev
 
 postgresql:
-  enabled: true
+  enabled: false
   accessmode: ReadWriteOnce
   service:
     port: 5432
@@ -55,7 +55,7 @@ hpa:
   memTarget: 500Mi
 
 redis:
-  enabled: true
+  enabled: false
   memory_limit: 512Mi
   is_namespace: openshift
   redis_password: 'somepassword'
