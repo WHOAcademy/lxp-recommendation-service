@@ -12,6 +12,7 @@ setup(name='lxp-recommendation-service',
           'django-nose==1.4.6',
           'drf-yasg==1.17.1',
           'django-cors-headers==3.4.0',
-          'django-redis==4.12.1'
+          'django-redis==4.12.1',
+          'numpy==1.17.3'
       ],
       scripts=['manage.py'])
