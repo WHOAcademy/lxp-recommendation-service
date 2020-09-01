@@ -38,13 +38,13 @@ class RecommendationListView(views.APIView):
         logger.info(course_service_url)
 
         courses_topics_and_skills = requests.get(course_service_url).json()
-        
+
         # Get the recommended courses
         recommended_courses = get_recommended_courses(courses_topics_and_skills, user_topics_and_skills)
 
         data= [
-            {"data": "10"}, 
-            {"data": keycloak_id}, 
+            {"data": "10"},
+            {"data": keycloak_id},
             {"data": course_service_url + ' '.join([str(x) for x in recommended_courses])}
         ]
 
