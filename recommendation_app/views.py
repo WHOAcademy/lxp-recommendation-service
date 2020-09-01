@@ -1,3 +1,4 @@
+from django.conf import settings
 import logging
 import requests
 from django.http import HttpResponse, HttpResponseServerError
@@ -26,13 +27,15 @@ def get_recommendations(request):
 
         user_topics_and_skills = pasta()
         
-        course_service_url = get_service_url('COURSE_SERVICE') + '/api/courses-topics-and-skills'
+        # course_service_url = get_service_url('COURSE_SERVICE') + '/api/courses-topics-and-skills'
+        course_service_url = settings.LXP_COURSE_SERVICE + '/api/courses-topics-and-skills'
+        logger.info(course_service_url)
 
         courses_topics_and_skills = requests.get(course_service_url).json()
         
         recommended_courses = get_recommended_courses(courses_topics_and_skills, user_topics_and_skills)
         
-        return HttpResponse(' '.join([str(x) for x in recommended_courses]))
+        return HttpResponse(course_service_url + ' '.join([str(x) for x in recommended_courses]))
 
     except MultiValueDictKeyError as e:
         logger.exception(e)

@@ -10,3 +10,5 @@ DATABASES = {
         'PORT': os.getenv('TEST_DATABASE_SERVICE_PORT'),
     }
 }
+
+LXP_COURSE_SERVICE = 'http://test-lxp-course-service:8080'
