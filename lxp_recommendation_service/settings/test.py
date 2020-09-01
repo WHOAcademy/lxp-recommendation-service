@@ -11,4 +11,4 @@ DATABASES = {
     }
 }
 
-LXP_COURSE_SERVICE = 'http://test-lxp-course-service:8080'
+LXP_COURSE_SERVICE = 'http://test-lxp-course-service.labs-test:8080'
