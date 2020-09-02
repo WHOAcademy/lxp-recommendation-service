@@ -51,7 +51,7 @@ def get_courses_features(courses_topics_and_skills):
 
     # course features array - samples along first dimension (position represents course id), topics along second dimension:
     course_topic_features = zeros((n_courses, len(topic_index_dict)))
-    # skill features array - samples along first dimension (position represents course id), topics along second dimension:
+    # skill features array - samples along first dimension (position represents course id), skills along second dimension:
     course_skill_features = zeros((n_courses, len(skill_index_dict)))
 
     # for each course:
@@ -95,30 +95,33 @@ def get_courses_features(courses_topics_and_skills):
 def get_user_features(user_topics_and_skills, topic_index_dict, skill_index_dict):
     """Compute and return respectively topic and skill feature vectors for user."""
 
-    # FIXME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
     n_topics = len(topic_index_dict)
     n_skills = len(skill_index_dict)
 
     # extracting topics:
-    user_topics = user_topics_and_skills['course_topics']
-    # extracting skills' expertise:
-    user_skills_with_expertise = {
-        **{k: exp_level_value_dict[EXP_LEVELS[0]] for k in user_topics_and_skills['novice_skills']},
-        **{k: exp_level_value_dict[EXP_LEVELS[1]] for k in user_topics_and_skills['intermediate_skills']},
-        **{k: exp_level_value_dict[EXP_LEVELS[2]] for k in user_topics_and_skills['expert_skills']}
-        }
+    print(user_topics_and_skills)
+    user_topics = user_topics_and_skills['interests']
 
     # topic features:
-    user_topic_features = zeros((1, n_topics))
+    user_topic_features = zeros((1, n_topics)) # unfilled features already equal zero
     for topic in user_topics:
-        user_topic_features[0, topic - 1] = 1
+        topic_id = topic_index_dict[topic['name']]
+        user_topic_features[0, topic_id - 1] = 1
+
+    # extracting skills' expertise:
+    user_skills_with_expertise = user_topics_and_skills['skills']
 
     # skill features:
-    user_skill_features = zeros((1, n_skills))
-    for skill, expertise in user_skills_with_expertise.items():
-        #user_skill_features[0, skill - 1] = exp_level_value_dict[[EXP_LEVELS[expertise]]]
-        user_skill_features[0, skill - 1] = expertise
+    user_skill_features = zeros((1, n_skills)) # unfilled features already equal zero
+    for skill_with_expertise in user_skills_with_expertise:
+        skill_id = skill_with_expertise['slug']
+        expertise = skill_with_expertise['rating']
+        # TO BE BETTER IMPLEMENTED - fixing ununified naming convention:
+        if expertise == '':
+            continue
+        if expertise == 'Master':
+            expertise = 'Expert'
+        user_skill_features[0, skill_id - 1] = exp_level_value_dict[expertise]
 
     return user_topic_features, user_skill_features
 

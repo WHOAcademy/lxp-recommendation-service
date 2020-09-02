@@ -16,10 +16,6 @@ class RecommendationListView(views.APIView):
     Use this endpoint to GET all recommended courses.
     """
 
-    def pasta(self):
-        data = {"course_topics":[36, 44],"novice_skills":[21, 19],"intermediate_skills":[],"expert_skills":[]}
-        return data
-
     def get(self, request, keycloak_id):
         # TODO: authenticate the user with Keycloak service
 
@@ -31,7 +27,6 @@ class RecommendationListView(views.APIView):
         # TODO: Handle invalid keycloak_id
         user_topics_and_skills = requests.get(profile_service_url).json()
         logger.info(user_topics_and_skills)
-        user_topics_and_skills = self.pasta()
 
         # Get Course details
         course_service_url = settings.LXP_COURSE_SERVICE + '/api/courses-topics-and-skills'
