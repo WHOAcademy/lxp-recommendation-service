@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.http import HttpResponseBadRequest
 import logging
 import requests
 
@@ -24,8 +25,11 @@ class RecommendationListView(views.APIView):
         profile_service_url = settings.LXP_PROFILE_SERVICE + '/api/v1/profiles/' + keycloak_id
         logger.info(profile_service_url)
 
-        # TODO: Handle invalid keycloak_id
-        user_topics_and_skills = requests.get(profile_service_url).json()
+        profile_service_response = requests.get(profile_service_url)
+        if profile_service_response.status_code != requests.codes.ok:
+            return HttpResponseBadRequest('Invalid keycloak_id')
+
+        user_topics_and_skills = profile_service_response.json()
         logger.info(user_topics_and_skills)
 
         # Get Course details
@@ -35,21 +39,19 @@ class RecommendationListView(views.APIView):
         courses_topics_and_skills = requests.get(course_service_url).json()
 
         # Get the recommended courses
-        recommended_courses = get_recommended_courses(courses_topics_and_skills, user_topics_and_skills)
+        recommended_courses = get_recommended_courses(courses_topics_and_skills, user_topics_and_skills, n_top = 7)
 
-        data= [
-            {"data": "10"},
-            {"data": keycloak_id},
-            {"data": course_service_url + ' '.join([str(x) for x in recommended_courses])}
-        ]
+        data = []
+        for course in recommended_courses:
+            obj = {
+                "id": course['id'],
+                "title": course['title'],
+                "description": "Lorem Ipsum", # TODO: update the course service to get this data
+                "duration_seconds": 18000, # TODO: update the course service to get this data
+                "creation_date": "2020-07-13T12:45:26.401000Z", # TODO: update the course service to get this data
+                "last_mod_date": "2020-08-11T10:38:29Z" # TODO: update the course service to get this data
+            }
+            data.append(obj)
 
         results = RecommendationSerializer(data, many=True).data
         return Response(results)
-
-
-    # update the algorithm to filter down courses - for profile and course api changes
-    # apply the algorithm to filter down courses - no problem for order, present all top ones
-    # update the serializer for the response format
-    # pass courses back to front-end
-    # Update the test cases - refer course service
-    # Handle invalid keycloak_id

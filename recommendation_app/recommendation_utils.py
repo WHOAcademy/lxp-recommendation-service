@@ -99,7 +99,6 @@ def get_user_features(user_topics_and_skills, topic_index_dict, skill_index_dict
     n_skills = len(skill_index_dict)
 
     # extracting topics:
-    print(user_topics_and_skills)
     user_topics = user_topics_and_skills['interests']
 
     # topic features:
@@ -209,7 +208,7 @@ def get_recommended_courses(courses_topics_and_skills, user_topics_and_skills, n
     # returning the most top relevant courses' indexes, in ascending order:
     top_indexes = argsort(squeeze(similarities))[-1 : -(n_top+1) : -1]
 
-    # retrieving respective course titles:
-    top_titles = [course_title_dict[indx] for indx in top_indexes]
+    # retrieving respective course indexes (1-based) and titles:
+    top_indexes_and_titles = [{'id': indx + 1, 'title': course_title_dict[indx]} for indx in top_indexes]
 
-    return top_titles
+    return top_indexes_and_titles
