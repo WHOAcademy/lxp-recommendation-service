@@ -141,3 +141,9 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
+
+
+
+# SERVICE URLs
+LXP_COURSE_SERVICE = 'http://lxp-course-service:8080'
+LXP_PROFILE_SERVICE = 'http://lxp-profile-service:8080'
