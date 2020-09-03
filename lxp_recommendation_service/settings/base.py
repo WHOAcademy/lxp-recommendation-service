@@ -146,4 +146,4 @@ SESSION_CACHE_ALIAS = "default"
 
 # SERVICE URLs
 LXP_COURSE_SERVICE = 'http://lxp-course-service:8080'
-LXP_PROFILE_SERVICE = 'http://lxp-profile-service:8080'
+LXP_PROFILE_SERVICE = 'http://lxp-profile-service:3000'
