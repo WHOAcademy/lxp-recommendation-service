@@ -113,11 +113,12 @@ def get_user_features(user_topics_and_skills, topic_index_dict, skill_index_dict
     # skill features:
     user_skill_features = zeros((1, n_skills)) # unfilled features already equal zero
     for skill_with_expertise in user_skills_with_expertise:
-        skill_id = skill_with_expertise['slug']
+        skill_id = skill_index_dict[skill_with_expertise['slug']]
         expertise = skill_with_expertise['rating']
         # TO BE BETTER IMPLEMENTED - fixing ununified naming convention:
         if expertise == '':
-            continue
+            #continue
+            expertise = 'Novice'
         if expertise == 'Master':
             expertise = 'Expert'
         user_skill_features[0, skill_id - 1] = exp_level_value_dict[expertise]
