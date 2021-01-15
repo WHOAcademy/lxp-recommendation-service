@@ -2,12 +2,6 @@
 
 ## Local development setup
 
-To spin up a postgressql via docker:
-
-`
-docker run --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=balthazar -e POSTGRES_USER=bastian -e POSTGRES_DB=neverendingblog -d postgres
-`
-
 To spin up a redis via docker:
 
 `
@@ -29,8 +23,7 @@ SET SECRET_KEY=abcd
 ### Running the tests 
 
 ```
-export TEST_DATABASE_SERVICE_HOST="localhost"
-export TEST_DATABASE_SERVICE_PORT="5432"
-
-python manage.py test --settings=lxp_recommendation_service.settings.test
+coverage run manage.py test --settings=lxp_recommendation_service.settings.test
+coverage report -m
+coverage html -d cover
 ```

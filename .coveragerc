@@ -1,0 +1,26 @@
+[run]
+branch = True
+source = recommendation_app
+omit =
+    */migrations/*
+    *__init__.py*
+    recommendation_app/admin.py
+    recommendation_app/apps.py
+    */venv/*
+    */lxp_recommendation_service/*
+    manage.py
+    setup.py
+    */tests/*
+
+[report]
+show_missing = True
+omit =
+    */migrations/*
+    *__init__.py*
+    recommendation_app/admin.py
+    recommendation_app/apps.py
+    */venv/*
+    */lxp_recommendation_service/*
+    manage.py
+    setup.py
+    */tests/*

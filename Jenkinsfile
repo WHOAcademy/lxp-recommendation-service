@@ -111,7 +111,9 @@ pipeline {
 
                 echo '### Running tests ###'
                 sh 'python manage.py migrate --settings=lxp_recommendation_service.settings.test'
-                sh 'python manage.py test --with-coverage --cover-erase --cover-package=recommendation_app --with-xunit --xunit-file=xunittest.xml --cover-branches --cover-html --settings=lxp_recommendation_service.settings.test'
+                sh 'coverage run manage.py test --settings=lxp_recommendation_service.settings.test'
+                sh 'coverage report -m'
+                sh 'coverage html -d cover'
 
                 echo '### Packaging App for Nexus ###'
                 sh '''
